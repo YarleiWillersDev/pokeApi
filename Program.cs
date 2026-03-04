@@ -1,11 +1,14 @@
-var builder = WebApplication.CreateBuilder(args);
+using Microsoft.EntityFrameworkCore;
+using PokeAPI.Data;
 
-// Add services to the container.
+var builder = WebApplication.CreateBuilder(args);
+var dbString = builder.Configuration.GetConnectionString("Default")
+        ?? throw new InvalidOperationException("Connection string 'Default' não encontrada");
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite(dbString));
 
 var app = builder.Build();
 
@@ -17,9 +20,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

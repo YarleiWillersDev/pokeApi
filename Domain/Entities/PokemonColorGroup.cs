@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PokeAPI.Domain.Entities
 {
-    [Table("Pokemon_Color_Group")]
+    [Table("PokemonColorGroup")]
     public class PokemonColorGroup
     {
         public int Id { get; set; }
@@ -17,6 +17,5 @@ namespace PokeAPI.Domain.Entities
         public string Color { get; set; } = null!;
 
         public ICollection<Pokemon> Pokemons { get; set; } = new List<Pokemon>();
-};
-    }
+    };
 }
